@@ -21,8 +21,6 @@ public class User {
 
     private String email;
 
-    private String address;
-
     private String birthday;
 
     private String nickname;
@@ -40,11 +38,10 @@ public class User {
 
 
     @Builder
-    public User(String username, String email, String nickname, Gender gender, String address, Authority authority, Boolean isFirst, OauthType oauthType) {
+    public User(String username, String email, String nickname, Gender gender, Authority authority, Boolean isFirst, OauthType oauthType) {
         this.username = username;
         this.email = email;
         this.gender = gender;
-        this.address = address;
         this.nickname = nickname;
         this.authority = authority;
         this.isFirst = isFirst;
@@ -58,7 +55,6 @@ public class User {
 
     public void updateUserInfo(UserRequestDto userRequestDto){
         this.nickname = userRequestDto.nickname();
-        this.address = userRequestDto.address();
         this.birthday = userRequestDto.birthday();
         this.gender = userRequestDto.gender();
     }
