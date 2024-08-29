@@ -5,6 +5,7 @@ import com.hash.harp.domain.survey.domain.type.Mbti;
 import com.hash.harp.domain.survey.domain.type.Travel;
 
 public record SurveyRequestDto(
+        Long userId,
         Food food,
         Mbti mbti,
         Travel travel,

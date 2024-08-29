@@ -3,6 +3,7 @@ package com.hash.harp.domain.survey.service;
 import com.hash.harp.domain.survey.controller.dto.SurveyRequestDto;
 import com.hash.harp.domain.survey.domain.Survey;
 import com.hash.harp.domain.survey.repository.SurveyRepository;
+import com.hash.harp.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class CommandSurveyService {
 
     public void createSurvey(SurveyRequestDto surveyRequestDto) {
         Survey survey = Survey.builder()
+                .userId(surveyRequestDto.userId())
                 .travel(surveyRequestDto.travel())
                 .food(surveyRequestDto.food())
                 .mbti(surveyRequestDto.mbti())
