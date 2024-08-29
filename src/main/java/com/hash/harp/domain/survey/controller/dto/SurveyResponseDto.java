@@ -7,12 +7,13 @@ import com.hash.harp.domain.survey.domain.type.Travel;
 
 public record SurveyResponseDto(
         Long id,
+        Long userId,
         Food food,
         Mbti mbti,
         Travel travel,
         String content
 ) {
     public static SurveyResponseDto from(final Survey survey) {
-        return new SurveyResponseDto(survey.getId(), survey.getFood(), survey.getMbti(), survey.getTravel(), survey.getContent());
+        return new SurveyResponseDto(survey.getId(), survey.getUserId(), survey.getFood(), survey.getMbti(), survey.getTravel(), survey.getContent());
     }
 }

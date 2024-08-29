@@ -3,6 +3,7 @@ package com.hash.harp.domain.survey.domain;
 import com.hash.harp.domain.survey.domain.type.Food;
 import com.hash.harp.domain.survey.domain.type.Mbti;
 import com.hash.harp.domain.survey.domain.type.Travel;
+import com.hash.harp.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,11 +28,15 @@ public class Survey {
     @Enumerated(EnumType.STRING)
     private Mbti mbti;
 
+    @Column(name = "USER_ID")
+    private Long userId;
+
     @Builder
-    public Survey(Travel travel, Food food, Mbti mbti, String content) {
+    public Survey(Travel travel, Food food, Mbti mbti, String content, Long userId) {
         this.travel = travel;
         this.food = food;
         this.mbti = mbti;
         this.content = content;
+        this.userId = userId;
     }
 }
