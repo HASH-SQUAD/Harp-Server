@@ -10,7 +10,14 @@ public record HeaderResponseDto(
         String endDate,
         String duration
 ) {
-    public static HeaderResponseDto from(final Header planHeader) {
-        return new HeaderResponseDto(planHeader.getId(), planHeader.getTitle(), planHeader.getD_day(), planHeader.getStartDay(), planHeader.getEndDay(), planHeader.getDuration());
+    public static HeaderResponseDto from(final Header header) {
+        return new HeaderResponseDto(
+                header.getId(),
+                header.getTitle(),
+                header.getD_day(),
+                header.getStartDay(),
+                header.getEndDay(),
+                header.getDuration()
+        );
     }
 }
