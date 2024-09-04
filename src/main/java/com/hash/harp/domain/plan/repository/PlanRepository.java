@@ -1,7 +1,7 @@
 package com.hash.harp.domain.plan.repository;
 
-import com.hash.harp.domain.plan.domain.Header;
+import com.hash.harp.domain.plan.domain.Plan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PlanRepository extends JpaRepository<Header, Long> {
+public interface PlanRepository extends JpaRepository<Plan, Long> {
 }
