@@ -9,6 +9,10 @@ import com.hash.harp.domain.plan.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class PlanCreator {
@@ -18,16 +22,31 @@ public class PlanCreator {
     private final DetailRepository detailRepository;
 
     public void createPlan(PlanRequestDto planRequestDto) {
-        Plan plan = Plan.builder()
-                .day(planRequestDto.day())
-                .time(planRequestDto.time())
-                .location(planRequestDto.location())
-                .activity(planRequestDto.activity())
-                .storeName(planRequestDto.storeName())
-                .placeUrl(planRequestDto.placeUrl())
-                .build();
+        String title = planRequestDto.getTitle();
+        String userId = planRequestDto.getUserId();
 
-        planRepository.save(plan);
+        Map<String, List<PlanRequestDto.ActivityDto>> dayMap = planRequestDto.getDayMap();
+
+        if (dayMap != null) {
+            dayMap.forEach((day, activities) -> {
+                activities.forEach(activityDto -> {
+                    Plan plan = Plan.builder()
+                            .day(day)
+                            .time(LocalTime.parse(activityDto.getTime()))
+                            .activity(activityDto.getActivity())
+                            .location(activityDto.getLocation())
+                            .storeName(activityDto.getStoreName())
+                            .placeUrl(activityDto.getPlaceUrl())
+                            .title(title)
+                            .userId(userId)
+                            .build();
+
+                    planRepository.save(plan);
+
+                    System.out.println(LocalTime.parse(activityDto.getTime()));
+                });
+            });
+        }
     }
 
     public void createDetail(DetailRequestDto detailRequestDto) {
