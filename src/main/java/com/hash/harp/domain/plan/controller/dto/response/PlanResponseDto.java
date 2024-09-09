@@ -11,7 +11,9 @@ public record PlanResponseDto(
         String activity,
         String location,
         String storeName,
-        String placeUrl
+        String placeUrl,
+        String title,
+        String userId
 ) {
     public static PlanResponseDto from(final Plan plan) {
         return new PlanResponseDto(
@@ -21,7 +23,9 @@ public record PlanResponseDto(
                 plan.getActivity(),
                 plan.getLocation(),
                 plan.getStoreName(),
-                plan.getPlaceUrl()
+                plan.getPlaceUrl(),
+                plan.getTitle(),
+                plan.getUserId()
         );
     }
 }

@@ -1,12 +1,13 @@
 package com.hash.harp.domain.plan.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.hash.harp.domain.plan.controller.dto.request.DetailRequestDto;
+import com.hash.harp.domain.plan.controller.dto.request.PlanRequestDto;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -20,6 +21,7 @@ public class Plan {
 
     private String day;
 
+    @Column(name = "time", columnDefinition = "TIME")
     private LocalTime time;
 
     private String activity;
@@ -30,15 +32,25 @@ public class Plan {
 
     private String placeUrl;
 
+    private String title;
+
+    private String userId;
 
     @Builder
-    public Plan(String day, LocalTime time, String activity, String location, String storeName, String placeUrl) {
+    public Plan(String day, LocalTime time, String activity, String location, String storeName, String placeUrl, String userId, String title) { // title 필드 추가
         this.day = day;
         this.time = time;
         this.activity = activity;
         this.location = location;
         this.storeName = storeName;
         this.placeUrl = placeUrl;
+        this.userId = userId;
+        this.title = title;
     }
 
+    public void updatePlan(PlanRequestDto planRequestDto) {
+        this.title = planRequestDto.getTitle();
+        this.activity = planRequestDto.getDayMap().get(this.day).get(0).getActivity();
+        this.time = LocalTime.parse(planRequestDto.getDayMap().get(this.day).get(0).getTime());
+    }
 }
