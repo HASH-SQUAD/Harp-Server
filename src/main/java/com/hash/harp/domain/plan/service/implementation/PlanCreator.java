@@ -23,7 +23,7 @@ public class PlanCreator {
 
     public void createPlan(PlanRequestDto planRequestDto) {
         String title = planRequestDto.getTitle();
-        String userId = planRequestDto.getUserId();
+        Long userId = Long.valueOf(planRequestDto.getUserId());
 
         Map<String, List<PlanRequestDto.ActivityDto>> dayMap = planRequestDto.getDayMap();
 
