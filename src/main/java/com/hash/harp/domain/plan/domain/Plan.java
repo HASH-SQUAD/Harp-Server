@@ -19,6 +19,8 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long userId;
+
     private String day;
 
     @Column(name = "time", columnDefinition = "TIME")
@@ -34,10 +36,9 @@ public class Plan {
 
     private String title;
 
-    private String userId;
 
     @Builder
-    public Plan(String day, LocalTime time, String activity, String location, String storeName, String placeUrl, String userId, String title) { // title 필드 추가
+    public Plan(String day, LocalTime time, String activity, String location, String storeName, String placeUrl, Long userId, String title) {
         this.day = day;
         this.time = time;
         this.activity = activity;
