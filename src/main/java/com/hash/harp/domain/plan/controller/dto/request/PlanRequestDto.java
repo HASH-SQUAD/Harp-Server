@@ -11,19 +11,18 @@ import java.util.Map;
 @Getter
 @RequiredArgsConstructor
 public class PlanRequestDto {
-    private final String userId;
+    private final Long userId;
     private final String title;
     private Map<String, List<ActivityDto>> dayMap;
 
     @Getter
     @NoArgsConstructor
     public static class ActivityDto {
+        private Long userId;
         private String time;
         private String activity;
         private String storeName;
         private String location;
         private String placeUrl;
-        private String title;
-        private String userId;
     }
 }
