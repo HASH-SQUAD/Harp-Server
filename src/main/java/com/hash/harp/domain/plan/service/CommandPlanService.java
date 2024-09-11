@@ -54,11 +54,13 @@ public class CommandPlanService {
         planUpdater.updateDetail(detailRequestDto, id);
     }
 
-    public void updatePlan(PlanRequestDto planRequestDto, Long userId) {
-        planUpdater.updatePlan(planRequestDto, userId);
+    public void updatePlan(
+            PlanRequestDto planRequestDto, Long userId, String title
+    ) {
+        planUpdater.updatePlan(planRequestDto, userId, title);
     }
 
-    public void deletePlan(Long userId) {
-        planDeleter.deletePlan(userId);
+    public void deletePlan(Long userId, String title) {
+        planDeleter.deletePlan(userId, title);
     }
 }

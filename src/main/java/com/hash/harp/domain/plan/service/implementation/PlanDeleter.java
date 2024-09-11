@@ -13,8 +13,8 @@ public class PlanDeleter {
 
     private final PlanRepository planRepository;
 
-    public void deletePlan(Long userId) {
-        List<Plan> plans = planRepository.findByUserId(userId);
+    public void deletePlan(Long userId, String title) {
+        List<Plan> plans = planRepository.findByUserIdAndTitle(userId, title);
         plans.forEach(plan -> planRepository.delete(plan));
     }
 
