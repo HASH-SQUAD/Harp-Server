@@ -31,7 +31,22 @@ public class PlanController {
     }
 
     @PutMapping("/detail/{id}")
-    private void updateDetail(@PathVariable Long id, @RequestBody DetailRequestDto detailReqduestDto) {
+    private void updateDetail(
+            @PathVariable Long id,
+            @RequestBody DetailRequestDto detailReqduestDto
+    ) {
         commandPlanService.updateDetail(detailReqduestDto, id);
+    }
+
+    @PutMapping("/day/{userId}")
+    private void updatePlan(
+            @PathVariable(name = "userId") Long userId,
+            @RequestBody PlanRequestDto planRequestDto) {
+        commandPlanService.updatePlan(planRequestDto, userId);
+    }
+
+    @DeleteMapping("/day/{userId}")
+    private void deletePlan(@PathVariable(name = "userId") Long userId) {
+        commandPlanService.deletePlan(userId);
     }
 }
