@@ -28,8 +28,10 @@ public class PlanUpdater {
         detail.updateDetail(detailRequestDto);
     }
 
-    public void updatePlan(PlanRequestDto planRequestDto, Long userId) {
-        List<Plan> plans = planRepository.findByUserId(userId);
+    public void updatePlan(
+            PlanRequestDto planRequestDto, Long userId, String title
+    ) {
+        List<Plan> plans = planRepository.findByUserIdAndTitle(userId, title);
         plans.forEach(plan -> plan.updatePlan(planRequestDto));
     }
 }

@@ -38,15 +38,21 @@ public class PlanController {
         commandPlanService.updateDetail(detailReqduestDto, id);
     }
 
-    @PutMapping("/day/{userId}")
+    @PutMapping("/day/{userId}/{title}")
     private void updatePlan(
             @PathVariable(name = "userId") Long userId,
-            @RequestBody PlanRequestDto planRequestDto) {
-        commandPlanService.updatePlan(planRequestDto, userId);
+            @RequestBody PlanRequestDto planRequestDto,
+            @PathVariable(name = "title") String title
+            ) {
+        commandPlanService.updatePlan(planRequestDto, userId, title);
     }
 
-    @DeleteMapping("/day/{userId}")
-    private void deletePlan(@PathVariable(name = "userId") Long userId) {
-        commandPlanService.deletePlan(userId);
+    @DeleteMapping("/day/{userId}/{title}")
+    private void deletePlan(
+            @PathVariable(name = "userId") Long userId,
+            @PathVariable(name = "title") String title
+    )
+    {
+        commandPlanService.deletePlan(userId, title);
     }
 }
