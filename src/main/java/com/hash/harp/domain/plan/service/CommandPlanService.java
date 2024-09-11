@@ -5,9 +5,12 @@ import com.hash.harp.domain.plan.controller.dto.request.HeaderRequestDto;
 import com.hash.harp.domain.plan.controller.dto.request.PlanRequestDto;
 import com.hash.harp.domain.plan.domain.Detail;
 import com.hash.harp.domain.plan.domain.Header;
+import com.hash.harp.domain.plan.domain.Plan;
 import com.hash.harp.domain.plan.repository.DetailRepository;
 import com.hash.harp.domain.plan.repository.HeaderRepository;
+import com.hash.harp.domain.plan.repository.PlanRepository;
 import com.hash.harp.domain.plan.service.implementation.PlanCreator;
+import com.hash.harp.domain.plan.service.implementation.PlanDeleter;
 import com.hash.harp.domain.plan.service.implementation.PlanUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,9 +24,11 @@ public class CommandPlanService {
 
     private final PlanUpdater planUpdater;
 
+    private final PlanDeleter planDeleter;
+
     private final HeaderRepository headerRepository;
 
-    private final DetailRepository detailRepository;
+    private final PlanRepository planRepository;
 
     public void createPlanHeader(HeaderRequestDto headerRequestDto) {
         Header header = Header.builder()
@@ -46,6 +51,14 @@ public class CommandPlanService {
     }
 
     public void updateDetail(DetailRequestDto detailRequestDto, Long id) {
-        planUpdater.update(detailRequestDto, id);
+        planUpdater.updateDetail(detailRequestDto, id);
+    }
+
+    public void updatePlan(PlanRequestDto planRequestDto, Long userId) {
+        planUpdater.updatePlan(planRequestDto, userId);
+    }
+
+    public void deletePlan(Long userId) {
+        planDeleter.deletePlan(userId);
     }
 }
