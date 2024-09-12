@@ -6,18 +6,18 @@ import java.time.LocalTime;
 
 public record PlanResponseDto(
         Long Id,
-        Long userId,
+        Long headerId,
         String day,
         LocalTime time,
         String activity,
         String location,
         String storeName,
         String placeUrl,
-        String title
+        String content
 ) {
     public static PlanResponseDto from(final Plan plan) {
         return new PlanResponseDto(
-                plan.getUserId(),
+                plan.getHeaderId(),
                 plan.getId(),
                 plan.getDay(),
                 plan.getTime(),
@@ -25,7 +25,7 @@ public record PlanResponseDto(
                 plan.getLocation(),
                 plan.getStoreName(),
                 plan.getPlaceUrl(),
-                plan.getTitle()
+                plan.getContent()
         );
     }
 }
