@@ -1,9 +1,6 @@
 package com.hash.harp.domain.plan.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -14,7 +11,11 @@ public class Header {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "header_id")
     private Long id;
+
+    @Column(name = "user_id")
+    private Long userId;
 
     private String title;
 
@@ -27,11 +28,12 @@ public class Header {
     private String duration;
 
     @Builder
-    public Header(String title, String d_day, String startDay, String endDay, String duration) {
+    public Header(String title, String d_day, String startDay, String endDay, String duration, Long userId) {
         this.title = title;
         this.d_day = d_day;
         this.startDay = startDay;
         this.endDay = endDay;
         this.duration = duration;
+        this.userId = userId;
     }
 }
