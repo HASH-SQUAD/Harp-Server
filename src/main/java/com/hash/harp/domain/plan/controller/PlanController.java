@@ -2,9 +2,13 @@ package com.hash.harp.domain.plan.controller;
 
 import com.hash.harp.domain.plan.controller.dto.request.HeaderRequestDto;
 import com.hash.harp.domain.plan.controller.dto.request.PlanRequestDto;
+import com.hash.harp.domain.plan.controller.dto.response.PlanResponseDto;
 import com.hash.harp.domain.plan.service.CommandPlanService;
+import com.hash.harp.domain.plan.service.QueryPlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class PlanController {
 
     private final CommandPlanService commandPlanService;
+
+    private final QueryPlanService queryPlanService;
 
     @PostMapping("/header")
     private void createHeader(@RequestBody HeaderRequestDto headerRequestDto) {
@@ -23,6 +29,10 @@ public class PlanController {
         commandPlanService.creatPlan(planRequestDto);
     }
 
+    @PutMapping("/day/{headerId}")
+    private void updatePlan(
+            @PathVariable(name = "headerId") Long headerId,
+            @RequestBody PlanRequestDto planRequestDto
     ) {
         commandPlanService.updatePlan(planRequestDto, headerId);
     }
@@ -32,5 +42,8 @@ public class PlanController {
         commandPlanService.deletePlan(headerId);
     }
 
+    @GetMapping("/day/{headerId}")
+    private List<PlanResponseDto> readPlan(@PathVariable(name = "headerId") Long headerId) {
+        return queryPlanService.readPlan(headerId);
     }
 }

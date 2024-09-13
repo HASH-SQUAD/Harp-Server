@@ -5,7 +5,7 @@ import com.hash.harp.domain.plan.domain.Plan;
 import java.time.LocalTime;
 
 public record PlanResponseDto(
-        Long Id,
+        Long id,
         Long headerId,
         String day,
         LocalTime time,
@@ -17,8 +17,8 @@ public record PlanResponseDto(
 ) {
     public static PlanResponseDto from(final Plan plan) {
         return new PlanResponseDto(
-                plan.getHeaderId(),
                 plan.getId(),
+                plan.getHeaderId(),
                 plan.getDay(),
                 plan.getTime(),
                 plan.getActivity(),
