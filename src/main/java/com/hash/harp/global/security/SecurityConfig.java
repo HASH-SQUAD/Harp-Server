@@ -1,8 +1,10 @@
 package com.hash.harp.global.security;
 
 import com.hash.harp.global.jwt.auth.JwtAuth;
+import com.hash.harp.global.jwt.auth.JwtFilter;
 import com.hash.harp.global.jwt.util.JwtUtil;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -10,19 +12,26 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsUtils;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuth jwtAuth;
     private final JwtUtil jwtUtil;
+    private final JwtAuth jwtAuth;
 
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws  Exception {
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
@@ -32,7 +41,7 @@ public class SecurityConfig {
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                         .anyRequest().permitAll()
                 )
-                .apply(new FilterConfig(jwtUtil, jwtAuth));
+                .addFilterBefore(new JwtFilter(jwtAuth, jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

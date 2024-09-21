@@ -1,5 +1,6 @@
 package com.hash.harp.global.security;
 
+import com.hash.harp.global.exception.ExceptionFilter;
 import com.hash.harp.global.jwt.auth.JwtAuth;
 import com.hash.harp.global.jwt.auth.JwtFilter;
 import com.hash.harp.global.jwt.util.JwtUtil;
@@ -16,8 +17,9 @@ public class FilterConfig extends SecurityConfigurerAdapter<DefaultSecurityFilte
 
     @Override
     public void configure(HttpSecurity builder) {
-
         JwtFilter jwtFilter = new JwtFilter(jwtAuth, jwtUtil);
+        ExceptionFilter globalExceptionFilter = new ExceptionFilter();
         builder.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        builder.addFilterBefore(globalExceptionFilter, JwtFilter.class);
     }
 }

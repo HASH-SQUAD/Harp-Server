@@ -1,40 +1,55 @@
 package com.hash.harp.global.exception;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({HarpException.class})
-    public ResponseEntity<ErrorResponse> handleDefineException(HarpException exception) {
-
-        return ResponseEntity.status(exception.getStatus())
-                .body(new ErrorResponse(exception.getStatus().value(), exception.getMessage()));
+    @ExceptionHandler(HarpException.class)
+    public ResponseEntity<ErrorResponse> handleCustomException(HarpException e) {
+        return new ResponseEntity<>(new ErrorResponse(e.getStatus().value(), e.getMessage(), "CUSTOM_ERROR"), e.getStatus());
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class})
-    public ResponseEntity<ErrorResponse> handleDefineException(MethodArgumentNotValidException exception) {
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Map<String, String>> handleBindException(BindException e) {
+        Map<String, String> errorMap = new HashMap<>();
 
-        String message;
-
-        if (exception.getFieldError() == null) {
-            message = "";
-        } else {
-            message = exception.getFieldError().getDefaultMessage();
+        for (FieldError error : e.getFieldErrors()) {
+            errorMap.put(error.getField(), error.getDefaultMessage());
         }
 
-        return ResponseEntity.status(400)
-                .body(new ErrorResponse(400, message));
+        return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({RuntimeException.class})
-    public ResponseEntity<ErrorResponse> handleDefineException(RuntimeException exception) {
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Map<String, String>> handleConstraintViolation(ConstraintViolationException e) {
+        Map<String, String> errorMap = new HashMap<>();
 
-        return ResponseEntity.status(500)
-                .body(new ErrorResponse(500, "서버에서 알 수 없는 에러가 발생했습니다."));
+        for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
+            errorMap.put(violation.getPropertyPath().toString(), violation.getMessage());
+        }
+
+        return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleServerException(Exception e) {
+        return new ResponseEntity<>(
+                new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal server error", "INTERNAL_ERROR"),
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
     }
 }
