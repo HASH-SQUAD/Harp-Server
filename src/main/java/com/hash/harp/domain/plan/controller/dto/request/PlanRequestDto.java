@@ -4,25 +4,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Getter
 @RequiredArgsConstructor
 public class PlanRequestDto {
-    private final Long userId;
-    private final String title;
-    private Map<String, List<ActivityDto>> dayMap;
+    private final Long headerId;
+    private Map<String, List<ActivityDto>> dayMap = new HashMap<>();
 
     @Getter
     @NoArgsConstructor
     public static class ActivityDto {
-        private Long userId;
         private String time;
         private String activity;
         private String storeName;
         private String location;
         private String placeUrl;
+        private String content;
     }
 }

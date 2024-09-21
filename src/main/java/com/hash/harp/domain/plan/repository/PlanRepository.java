@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface PlanRepository extends JpaRepository<Plan, Long> {
 
-    List<Plan> findByUserIdAndTitle(Long userId, String title);
+    List<Plan> findByHeaderId(Long headerId);
 
 }

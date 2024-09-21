@@ -28,7 +28,7 @@ public class Survey {
     @Enumerated(EnumType.STRING)
     private Mbti mbti;
 
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private Long userId;
 
     @Builder

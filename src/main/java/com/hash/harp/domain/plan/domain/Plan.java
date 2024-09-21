@@ -1,13 +1,9 @@
 package com.hash.harp.domain.plan.domain;
 
-import com.hash.harp.domain.plan.controller.dto.request.DetailRequestDto;
 import com.hash.harp.domain.plan.controller.dto.request.PlanRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalTime;
-import java.util.List;
-import java.util.Map;
 
 @Entity
 @Getter
@@ -19,7 +15,8 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    @Column(name = "header_id")
+    private Long headerId;
 
     private String day;
 
@@ -34,23 +31,23 @@ public class Plan {
 
     private String placeUrl;
 
-    private String title;
+    private String content;
 
 
     @Builder
-    public Plan(String day, LocalTime time, String activity, String location, String storeName, String placeUrl, Long userId, String title) {
+    public Plan(String day, LocalTime time, String activity, String location, String storeName, String placeUrl, Long headerId, String content) {
         this.day = day;
         this.time = time;
         this.activity = activity;
         this.location = location;
         this.storeName = storeName;
         this.placeUrl = placeUrl;
-        this.userId = userId;
-        this.title = title;
+        this.headerId = headerId;
+        this.content = content;
     }
 
     public void updatePlan(PlanRequestDto planRequestDto) {
-        this.title = planRequestDto.getTitle();
+        this.day = planRequestDto.getDayMap().keySet().stream().findFirst().orElse(this.day);
         this.activity = planRequestDto.getDayMap().get(this.day).get(0).getActivity();
         this.time = LocalTime.parse(planRequestDto.getDayMap().get(this.day).get(0).getTime());
     }
