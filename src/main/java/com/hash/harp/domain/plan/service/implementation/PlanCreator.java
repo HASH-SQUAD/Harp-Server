@@ -17,22 +17,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PlanCreator {
 
-    private final HeaderRepository headerRepository;
-
     private final PlanRepository planRepository;
-
-    public void createHeader(HeaderRequestDto headerRequestDto) {
-        Header header = Header.builder()
-                .userId(headerRequestDto.userId())
-                .title(headerRequestDto.title())
-                .d_day(headerRequestDto.d_day())
-                .startDay(headerRequestDto.startDate())
-                .endDay(headerRequestDto.endDate())
-                .duration(headerRequestDto.duration())
-                .build();
-
-        headerRepository.save(header);
-    }
 
     public void createPlan(PlanRequestDto planRequestDto) {
         Long headerId = Long.valueOf(planRequestDto.getHeaderId());

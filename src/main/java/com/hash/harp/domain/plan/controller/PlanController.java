@@ -21,7 +21,7 @@ public class PlanController {
 
     @PostMapping("/header")
     private void createHeader(@RequestBody HeaderRequestDto headerRequestDto) {
-        commandPlanService.createPlanHeader(headerRequestDto);
+        commandPlanService.createHeader(headerRequestDto);
     }
 
     @PostMapping("/day")
