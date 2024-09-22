@@ -9,7 +9,8 @@ public record HeaderResponseDto(
         String d_day,
         String startDate,
         String endDate,
-        String duration
+        String duration,
+        String imgUrl
 ) {
     public static HeaderResponseDto from(final Header header) {
         return new HeaderResponseDto(
@@ -19,7 +20,8 @@ public record HeaderResponseDto(
                 header.getD_day(),
                 header.getStartDay(),
                 header.getEndDay(),
-                header.getDuration()
+                header.getDuration(),
+                header.getImgUrl()
         );
     }
 }

@@ -23,6 +23,13 @@ server:
       enabled: true
       force: true
 
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+---
+#JWT
 jwt:
   header: ${HEADER}
   secret: ${SECRET}
@@ -30,6 +37,8 @@ jwt:
   refreshExp: ${REFRESH-EXP}
   prefix: ${PREFIX}
 
+---
+#OAUTH2
 oauth2:
   client:
     registration:
@@ -47,3 +56,13 @@ oauth2:
         scope:
           - profile
           - email
+
+---
+#S3
+aws:
+  s3:
+    bucket: ${S3_BUCKET}
+    access-key: ${S3_ACCESSKEY}
+    secret-key: ${S3_SECRET}
+  region:
+    static: ap-northeast-2
