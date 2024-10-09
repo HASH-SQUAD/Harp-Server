@@ -37,9 +37,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    private String imgUrl;
 
     @Builder
-    public User(String username, String email, String nickname, Gender gender, Authority authority, Boolean isFirst, OauthType oauthType) {
+    public User(String username, String email, String nickname, Gender gender, Authority authority, Boolean isFirst, OauthType oauthType, String imgUrl) {
         this.username = username;
         this.email = email;
         this.gender = gender;
@@ -47,6 +48,7 @@ public class User {
         this.authority = authority;
         this.isFirst = isFirst;
         this.oauthType = oauthType;
+        this.imgUrl = imgUrl;
     }
 
     public User update() {
@@ -58,5 +60,9 @@ public class User {
         this.nickname = userRequestDto.nickname();
         this.birthday = userRequestDto.birthday();
         this.gender = userRequestDto.gender();
+    }
+
+    public void updateProfile(UserRequestDto userRequestDto){
+        this.imgUrl = userRequestDto.imgUrl();
     }
 }

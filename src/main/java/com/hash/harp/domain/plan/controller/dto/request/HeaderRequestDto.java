@@ -7,7 +7,6 @@ public record HeaderRequestDto(
         String startDate,
         String endDate,
         String duration,
-        String imgUrl,
-        String url
+        String imgUrl
 ) {
 }
