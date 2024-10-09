@@ -16,4 +16,9 @@ public class UserController {
     public void updateUserInfo(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto) {
         commandUserService.update(userRequestDto, id);
     }
+
+    @PutMapping("/profile/{id}")
+    public void updateProfile(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto) {
+        commandUserService.updateProfile(userRequestDto, id);
+    }
 }
