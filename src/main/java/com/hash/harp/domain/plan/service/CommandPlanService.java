@@ -21,6 +21,8 @@ public class CommandPlanService {
 
     private final HeaderCreator headerCreator;
 
+    private final HeaderUpdater headerUpdater;
+
     public void createHeader(HeaderRequestDto headerRequestDto) {
         headerCreator.createHeader(headerRequestDto);
     }
@@ -37,5 +39,9 @@ public class CommandPlanService {
 
     public void deletePlan(Long headerId) {
         planDeleter.deletePlan(headerId);
+    }
+
+    public void updateHeaderImg(HeaderRequestDto headerRequestDto, Long headerId) {
+        headerUpdater.updateHeaderImg(headerRequestDto, headerId);
     }
 }

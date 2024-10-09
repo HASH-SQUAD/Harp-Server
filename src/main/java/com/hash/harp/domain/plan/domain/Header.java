@@ -1,5 +1,6 @@
 package com.hash.harp.domain.plan.domain;
 
+import com.hash.harp.domain.plan.controller.dto.request.HeaderRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,12 +23,11 @@ public class Header {
     private String endDay;
     private String duration;
     private String imgUrl;
-    private String url;
 
 
 
     @Builder
-    public Header(String title, String d_day, String startDay, String endDay, String duration, Long userId, String imgUrl, String url) {
+    public Header(String title, String d_day, String startDay, String endDay, String duration, Long userId, String imgUrl) {
         this.title = title;
         this.d_day = d_day;
         this.startDay = startDay;
@@ -35,6 +35,9 @@ public class Header {
         this.duration = duration;
         this.userId = userId;
         this.imgUrl = imgUrl;
-        this.url = url;
+    }
+
+    public void HeaderImgUpdate(HeaderRequestDto headerRequestDto) {
+        this.imgUrl = headerRequestDto.imgUrl();
     }
 }

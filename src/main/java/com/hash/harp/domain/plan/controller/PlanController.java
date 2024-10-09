@@ -46,4 +46,9 @@ public class PlanController {
     private List<PlanResponseDto> readPlan(@PathVariable(name = "headerId") Long headerId) {
         return queryPlanService.readPlan(headerId);
     }
+
+    @PutMapping("/S3/{headerId}")
+    private void updateHeaderImg(@RequestBody HeaderRequestDto headerRequestDto, @PathVariable(name = "headerId") Long headerId) {
+        commandPlanService.updateHeaderImg(headerRequestDto, headerId);
+    }
 }

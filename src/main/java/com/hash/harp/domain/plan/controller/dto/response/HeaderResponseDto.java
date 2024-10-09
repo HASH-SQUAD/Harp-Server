@@ -10,8 +10,7 @@ public record HeaderResponseDto(
         String startDate,
         String endDate,
         String duration,
-        String imgUrl,
-        String url
+        String imgUrl
 ) {
     public static HeaderResponseDto from(final Header header) {
         return new HeaderResponseDto(
@@ -22,8 +21,7 @@ public record HeaderResponseDto(
                 header.getStartDay(),
                 header.getEndDay(),
                 header.getDuration(),
-                header.getImgUrl(),
-                header.getUrl()
+                header.getImgUrl()
         );
     }
 }
