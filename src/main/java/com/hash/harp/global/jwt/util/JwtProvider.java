@@ -22,12 +22,12 @@ public class JwtProvider {
         return generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
     }
 
-    public TokenResponse generateToken(String authId, String role) {
+    public TokenResponse generateToken(String authId, String role, Boolean isFirst) {
 
         String accessToken = generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
         String refreshToken = generateToken(authId, role, REFRESH_KEY.getMessage(), jwtProperties.getRefreshExp());
 
-        return new TokenResponse(accessToken, refreshToken, getExpiredTime());
+        return new TokenResponse(accessToken, refreshToken, getExpiredTime(), isFirst);
     }
 
     private String generateToken(String authId, String role, String type, Long exp) {
