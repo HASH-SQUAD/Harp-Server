@@ -32,7 +32,9 @@ public class KakaoLoginService {
         String kakaoToken = kakaoAuthClient.getkakaoToken("authorization_code", authProperties.getClientId(), authProperties.getClientSecret(), authProperties.getRedirectUri(), code).accessToken();
         KakaoInfoResponse userInfo = kakaoInfoClient.getUserInfo( "Bearer " + kakaoToken);
         User user = saveOrUpadte(userInfo);
-        return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString());
+        boolean isFirst = user.getIsFirst();
+
+        return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString(), isFirst);
     }
 
     private KakaoTokenRequest createRequest(String code) {
