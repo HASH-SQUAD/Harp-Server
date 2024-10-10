@@ -32,7 +32,9 @@ public class GoogleLoginService {
         String googleToken = googleAuthClient.getGoogleToken(createRequest(code)).accessToken();
         GoogleInfoResponse userInfo = googleInfoClient.getUserInfo(googleToken);
         User user = saveOrUpdate(userInfo);
-        return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString());
+        boolean isFirst = user.getIsFirst();
+
+        return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString(), isFirst);
     }
 
 
