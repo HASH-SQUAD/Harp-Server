@@ -34,7 +34,7 @@ public class GoogleLoginService {
         User user = saveOrUpdate(userInfo);
         boolean isFirst = user.getIsFirst();
 
-        return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString(), isFirst);
+        return jwtProvider.generateToken(user.getId(), user.getEmail(), user.getAuthority().toString(), isFirst);
     }
 
 

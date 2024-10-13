@@ -34,7 +34,7 @@ public class KakaoLoginService {
         User user = saveOrUpadte(userInfo);
         boolean isFirst = user.getIsFirst();
 
-        return jwtProvider.generateToken(user.getEmail(), user.getAuthority().toString(), isFirst);
+        return jwtProvider.generateToken(user.getId(), user.getEmail(), user.getAuthority().toString(), isFirst);
     }
 
     private KakaoTokenRequest createRequest(String code) {
