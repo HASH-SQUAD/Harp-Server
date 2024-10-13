@@ -29,8 +29,11 @@ public class SurveyController {
         commandSurveyService.createSurvey(surveyRequestDto, userId);
     }
 
-    @GetMapping("/{surveyId}")
-    public SurveyResponseDto readById(@PathVariable("surveyId") Long id) {
-        return SurveyResponseDto.from(querySurveyService.readById(id));
+    @GetMapping
+    public SurveyResponseDto readById(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Long userId = jwtService.getUserIdFromToken(token);
+
+        return SurveyResponseDto.from(querySurveyService.readById(userId));
     }
 }
