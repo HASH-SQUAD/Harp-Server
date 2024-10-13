@@ -60,6 +60,6 @@ public class KakaoLoginService {
                     .build());
         }
 
-        return user.get().update();
+        return user.get();
     }
 }
