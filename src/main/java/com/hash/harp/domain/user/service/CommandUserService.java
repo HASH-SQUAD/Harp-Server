@@ -5,6 +5,7 @@ import com.hash.harp.domain.plan.domain.Header;
 import com.hash.harp.domain.plan.exception.HeaderNotFoundException;
 import com.hash.harp.domain.user.controller.dto.UserRequestDto;
 import com.hash.harp.domain.user.domain.User;
+import com.hash.harp.domain.user.exception.UserNotFoundException;
 import com.hash.harp.domain.user.repository.UserRepository;
 import com.hash.harp.domain.user.service.implementation.ProfileUpdater;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class CommandUserService {
 
     public void update(UserRequestDto userRequestDto, Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> new UserNotFoundException(id));
         user.updateUserInfo(userRequestDto);
     }
 

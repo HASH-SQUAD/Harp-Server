@@ -18,20 +18,21 @@ public class JwtProvider {
 
     private final JwtProperties jwtProperties;
 
-    public String generateAccessToken(String authId, String role) {
-        return generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
+    public String generateAccessToken(Long id, String authId, String role) {
+        return generateToken(id, authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
     }
 
-    public TokenResponse generateToken(String authId, String role, Boolean isFirst) {
+    public TokenResponse generateToken(Long id, String authId, String role, Boolean isFirst) {
 
-        String accessToken = generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
-        String refreshToken = generateToken(authId, role, REFRESH_KEY.getMessage(), jwtProperties.getRefreshExp());
+        String accessToken = generateToken(id, authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
+        String refreshToken = generateToken(id, authId, role, REFRESH_KEY.getMessage(), jwtProperties.getRefreshExp());
 
         return new TokenResponse(accessToken, refreshToken, getExpiredTime(), isFirst);
     }
 
-    private String generateToken(String authId, String role, String type, Long exp) {
+    private String generateToken(Long id, String authId, String role, String type, Long exp) {
         return Jwts.builder()
+                .claim("userId", id)
                 .setHeaderParam(TYPE.message, type)
                 .claim(ROLE.getMessage(), role)
                 .claim(AUTH_ID.getMessage(), authId)
