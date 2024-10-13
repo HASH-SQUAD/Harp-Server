@@ -61,6 +61,6 @@ public class GoogleLoginService {
                     .build());
         }
 
-        return user.get().update();
+        return user.get();
     }
 }
