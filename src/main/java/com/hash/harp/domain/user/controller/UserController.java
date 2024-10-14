@@ -2,6 +2,8 @@ package com.hash.harp.domain.user.controller;
 
 import com.hash.harp.domain.user.controller.dto.UserRequestDto;
 import com.hash.harp.domain.user.service.CommandUserService;
+import com.hash.harp.global.jwt.service.JwtService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +14,21 @@ public class UserController {
 
     private final CommandUserService commandUserService;
 
-    @PutMapping("/{id}")
-    public void updateUserInfo(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto) {
-        commandUserService.update(userRequestDto, id);
+    private final JwtService jwtService;
+
+    @PutMapping
+    public void updateUserInfo(HttpServletRequest request, @RequestBody UserRequestDto userRequestDto) {
+        String token = request.getHeader("Authorization");
+        Long userId = jwtService.getUserIdFromToken(token);
+
+        commandUserService.update(userRequestDto, userId);
     }
 
-    @PutMapping("/profile/{id}")
-    public void updateProfile(@PathVariable Long id, @RequestBody UserRequestDto userRequestDto) {
-        commandUserService.updateProfile(userRequestDto, id);
+    @PutMapping("/profile")
+    public void updateProfile(HttpServletRequest request,  @RequestBody UserRequestDto userRequestDto) {
+        String token = request.getHeader("Authorization");
+        Long userId = jwtService.getUserIdFromToken(token);
+
+        commandUserService.updateProfile(userRequestDto, userId);
     }
 }

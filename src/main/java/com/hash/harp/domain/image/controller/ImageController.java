@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageController {
     private final CommandImageService commandImageService;
 
-    @PostMapping("/plan")
+    @PostMapping("/Header")
     @ResponseStatus(HttpStatus.CREATED)
     public ImageResponseDto uploadPlanImage(MultipartFile file) {
         return ImageResponseDto.from(

@@ -2,8 +2,6 @@ package com.hash.harp.domain.plan.service;
 
 import com.hash.harp.domain.plan.controller.dto.request.HeaderRequestDto;
 import com.hash.harp.domain.plan.controller.dto.request.PlanRequestDto;
-import com.hash.harp.domain.plan.repository.HeaderRepository;
-import com.hash.harp.domain.plan.repository.PlanRepository;
 import com.hash.harp.domain.plan.service.implementation.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,8 +21,8 @@ public class CommandPlanService {
 
     private final HeaderUpdater headerUpdater;
 
-    public void createHeader(HeaderRequestDto headerRequestDto) {
-        headerCreator.createHeader(headerRequestDto);
+    public void createHeader(HeaderRequestDto headerRequestDto, Long userId) {
+        headerCreator.createHeader(headerRequestDto, userId);
     }
 
     public void creatPlan(PlanRequestDto planRequestDto) {

@@ -5,6 +5,8 @@ import com.hash.harp.domain.plan.controller.dto.request.PlanRequestDto;
 import com.hash.harp.domain.plan.controller.dto.response.PlanResponseDto;
 import com.hash.harp.domain.plan.service.CommandPlanService;
 import com.hash.harp.domain.plan.service.QueryPlanService;
+import com.hash.harp.global.jwt.service.JwtService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +21,14 @@ public class PlanController {
 
     private final QueryPlanService queryPlanService;
 
+    private final JwtService jwtService;
+
     @PostMapping("/header")
-    private void createHeader(@RequestBody HeaderRequestDto headerRequestDto) {
-        commandPlanService.createHeader(headerRequestDto);
+    private void createHeader(HttpServletRequest request, @RequestBody HeaderRequestDto headerRequestDto) {
+        String token = request.getHeader("Authorization");
+        Long userId = jwtService.getUserIdFromToken(token);
+
+        commandPlanService.createHeader(headerRequestDto, userId);
     }
 
     @PostMapping("/day")
