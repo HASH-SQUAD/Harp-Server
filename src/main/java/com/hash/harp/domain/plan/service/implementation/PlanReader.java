@@ -19,7 +19,7 @@ public class PlanReader {
     private final PlanRepository planRepository;
 
     public List<PlanResponseDto> readPlan(Long headerId) {
-        List<Plan> plans = planRepository.findAll();
+        List<Plan> plans = planRepository.findByHeaderId(headerId);
 
         return plans.stream()
                 .map(PlanResponseDto::from)
